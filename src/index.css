@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   A graphite system. One neutral ramp carries the entire identity; the only
+   chromatic value in the palette is `signal`, reserved for live/available
+   status. Contrast — not colour — is the accent.
+
+   Text tones are tuned against their own theme's background; the ratios noted
+   below are measured against `--c-base` and all clear WCAG AA for body text,
+   which matters because the metadata style is set at 11px.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Semantic colour (light) — RGB channels so Tailwind can apply alpha ── */
+  --c-base: 250 250 250; /* page                */
+  --c-surface: 244 244 245; /* recessed panels     */
+  --c-raised: 255 255 255; /* lifted panels       */
+  --c-line: 224 224 228; /* hairline rules      */
+  --c-line-strong: 196 197 203; /* emphasised rules    */
+  --c-ink: 23 24 27; /* primary text  15.9:1 */
+  --c-muted: 88 90 97; /* secondary      6.6:1 */
+  --c-faint: 110 113 122; /* metadata       4.7:1 */
+  --c-signal: 47 108 74; /* status only    6.0:1 */
+  --c-inverse: 250 250 250; /* text on ink fills   */
+
+  /* ── Typography ──────────────────────────────────────────────────────── */
+  --fs-display: clamp(3rem, 10.5vw, 8.5rem);
+  --fs-h1: clamp(2.25rem, 5.6vw, 4.5rem);
+  --fs-h2: clamp(1.75rem, 3.6vw, 2.875rem);
+  --fs-h3: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  --fs-lead: clamp(1rem, 1.15vw, 1.1875rem);
+
+  /* ── Layout ──────────────────────────────────────────────────────────── */
+  --shell: 1440px;
+  --gutter: 1.25rem;
+  --section-y: clamp(5rem, 11vw, 10rem);
+  --nav-h: 64px;
+
+  /* ── Motion ──────────────────────────────────────────────────────────── */
+  --dur-xs: 160ms;
+  --dur-sm: 260ms;
+  --dur-md: 460ms;
+  --dur-lg: 760ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 2rem;
+    --nav-h: 72px;
+  }
+}
+
+/* From `lg` the hero splits into a 7/12 statement column, so the display line is
+   no longer measured against the viewport but against roughly 52vw of it. The
+   name is set on one line, so the scale is backed off enough to clear that cage
+   with margin for font-metric variance and the swap-in fallback face. The
+   8.5rem ceiling still binds at 1440+, where the size is unchanged. */
+@media (min-width: 1024px) {
+  :root {
+    --fs-display: clamp(3rem, 9.4vw, 8.5rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gutter: 3.5rem;
+  }
+}
+
+.dark {
+  --c-base: 13 14 16;
+  --c-surface: 20 21 24;
+  --c-raised: 26 27 31;
+  --c-line: 38 39 43;
+  --c-line-strong: 60 62 68;
+  --c-ink: 236 236 238;
+  --c-muted: 154 156 163;
+  --c-faint: 128 131 140;
+  --c-signal: 122 165 138;
+  --c-inverse: 13 14 16;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  * {
+    min-width: 0; /* stops flex/grid children from forcing horizontal overflow */
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: rgb(var(--c-base));
+    color: rgb(var(--c-ink));
+    font-family: theme('fontFamily.sans');
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition: background-color var(--dur-md) var(--ease-out),
+      color var(--dur-md) var(--ease-out);
+  }
+
+  /* Arabic swaps the family but keeps the same structural scale. */
+  [dir='rtl'] body,
+  [lang='ar'] body {
+    font-family: theme('fontFamily.arabic');
+    line-height: 1.9;
+  }
+
+  [dir='rtl'] .font-mono {
+    letter-spacing: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: rgb(var(--c-ink));
+    color: rgb(var(--c-inverse));
+  }
+
+  /* A single, unmistakable focus treatment across the whole site. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-ink));
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  /* Restrained, monochrome scrollbar. */
+  @supports selector(::-webkit-scrollbar) {
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgb(var(--c-base));
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgb(var(--c-line-strong));
+      border: 3px solid rgb(var(--c-base));
+      border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgb(var(--c-faint));
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPONENT UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* Layout shell — every section aligns to this measure. */
+  .shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Monospace metadata: section indices, labels, captions, spec keys. */
+  .label {
+    font-family: theme('fontFamily.mono');
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: rgb(var(--c-faint));
+  }
+
+  /* Arabic has no uppercase and no mono cut — tracking and leading are relaxed
+     so labels don't render as cramped fallback glyphs. */
+  [dir='rtl'] .label {
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .label-ink {
+    color: rgb(var(--c-ink));
+  }
+
+  /* Editorial display type — negative tracking tightens as size grows. */
+  .display {
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.9;
+  }
+
+  [dir='rtl'] .display,
+  [dir='rtl'] .headline {
+    letter-spacing: 0;
+    line-height: 1.15;
+  }
+
+  .headline {
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    line-height: 1;
+  }
+
+  /* Text link with a rule that wipes in from the leading edge. */
+  .link {
+    position: relative;
+    display: inline-block;
+    color: rgb(var(--c-ink));
+    text-decoration: none;
+  }
+  .link::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    /* `transform-origin` has no logical keywords — flipped explicitly for RTL. */
+    transform-origin: left center;
+    transition: transform var(--dur-sm) var(--ease-out);
+  }
+  [dir='rtl'] .link::after {
+    transform-origin: right center;
+  }
+  .link:hover::after,
+  .link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Solid interactive fill: maximum contrast, no colour, no glow. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.875rem 1.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: background-color var(--dur-sm) var(--ease-out),
+      color var(--dur-sm) var(--ease-out), border-color var(--dur-sm) var(--ease-out);
+  }
+
+  .btn-solid {
+    background: rgb(var(--c-ink));
+    color: rgb(var(--c-inverse));
+  }
+  .btn-solid:hover {
+    background: rgb(var(--c-muted));
+  }
+
+  .btn-outline {
+    border-color: rgb(var(--c-line-strong));
+    color: rgb(var(--c-ink));
+  }
+  .btn-outline:hover {
+    border-color: rgb(var(--c-ink));
+    background: rgb(var(--c-surface));
+  }
+
+  /* Screen-reader-only, but focusable (skip link). */
+  .sr-only-focusable:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@layer utilities {
+  /* Vertical mask used by the heading reveal — children translate inside it. */
+  .mask {
+    display: block;
+    overflow: hidden;
+  }
+
+  /* ── Portrait plate ──────────────────────────────────────────────────────
+     The one full-colour surface in the build. Nothing here removes hue; the
+     filters only correct tone, because the source is a flat-lit photo on a
+     paper-white backdrop and that backdrop sits against very different page
+     stock in each theme. */
+  .portrait-plate {
+    filter: saturate(1.04) contrast(1.03);
+  }
+
+  .dark .portrait-plate {
+    /* Pulls the photo's white backdrop down to roughly 230 so it reads as a lit
+       print rather than a blown panel next to a 13/14/16 page. */
+    filter: saturate(0.98) brightness(0.9) contrast(1.01);
+  }
+
+  /* Edge treatment drawn *over* the image, so the parallax transform underneath
+     can't carry it off-plate. The hairline is what stops a white-backdrop photo
+     from bleeding into a near-white mount; the second inset grounds the base. */
+  .portrait-mount::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1), inset 0 -52px 56px -52px rgb(0 0 0 / 0.16);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hides the OS cursor only where the custom one is actually active. */
+  .cursor-hidden,
+  .cursor-hidden * {
+    cursor: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   Framer Motion is gated in JS via useReducedMotion(); this covers CSS
+   transitions, smooth scrolling and anything declarative.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
