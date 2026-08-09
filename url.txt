@@ -1,2 +1,2 @@
 code:https://github.com/SaadSinan-dev/React-Saad-Portfolio
-live:
+live:https://saad-dev-portfolio.netlify.app/
