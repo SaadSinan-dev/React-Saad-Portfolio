@@ -13,7 +13,7 @@ export const personalInfo = {
     'Dedicated Flutter developer and Software Engineering crafting elegant mobile experiences. Committed to writing clean, maintainable code and delivering seamless user interfaces.',
   bioAr:
     'مطور Flutter وطالب هندسة برمجيات، مكرس لبناء تجارب موبايل أنيقة. ألتزم بكتابة كود نظيف وقابل للصيانة مع تقديم واجهات مستخدم سلسة واحترافية.',
-  email: 'saadsenanbusiness@gmail.com',
+  email: 'saadsinanbusiness@gmail.com',
   whatsapp: '+963 980 562 304',
   github: 'https://github.com/SaadSinan-dev',
   linkedin: 'https://www.linkedin.com/in/saad-sinan-a34557374/',
@@ -70,8 +70,229 @@ export const principles = [
 
 export const projects = [
 {
-  id: 1,
+  id: 5,
   index: '01',
+  titleEn: 'Damas Dashboard',
+  titleAr: 'لوحة تحكم داماس',
+
+  descShortEn:
+      'A bilingual Flutter business-intelligence dashboard for tracking KPIs, revenue trends, and reports, built on Clean Architecture with Bloc.',
+
+  descShortAr:
+      'لوحة تحكم لإدارة الأعمال مبنية باستخدام Flutter بلغتين، لتتبع المؤشرات واتجاه الإيرادات والتقارير، مبنية على Clean Architecture باستخدام Bloc.',
+
+  descLongEn:
+      'Damas Dashboard is an admin console for monitoring commercial performance, presenting KPI cards with period-over-period comparisons, a revenue trend chart, a recent-activity feed, and a searchable, filterable report library with Arabic-aware search. It ships with a bundled JSON data source structured like an API response and reached only through repository interfaces, so a real backend can be added without changing domain or presentation code. The app is built with Clean Architecture in a feature-first layout, using Bloc (Cubit) for state management, get_it for dependency injection, and a token-driven design system, with full English/Arabic localisation and RTL support.',
+
+  descLongAr:
+      'داماس داشبورد هي لوحة تحكم إدارية لمتابعة أداء الأعمال، تعرض بطاقات مؤشرات أداء مع مقارنة الفترات، ورسمًا بيانيًا لاتجاه الإيرادات، وقائمة بالأنشطة الأخيرة، ومكتبة تقارير قابلة للبحث والتصفية والفرز مع دعم بحث يراعي خصائص اللغة العربية. يعتمد التطبيق على مصدر بيانات JSON مضمّن مصمم بشكل مشابه لاستجابة واجهة برمجية حقيقية، ويتم الوصول إليه فقط عبر واجهات المستودعات (Repositories)، بحيث يمكن ربط خادم حقيقي لاحقًا دون تعديل طبقتي Domain أو Presentation. بُني التطبيق باستخدام Clean Architecture بتنظيم Feature-First، مع Bloc (Cubit) لإدارة الحالة، وget_it لحقن التبعيات، ونظام تصميم قائم على الرموز، إلى جانب دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين إلى اليسار.',
+
+  featuresEn: [
+    'KPI cards with period-over-period comparison',
+    'Revenue trend chart with tooltips',
+    'Recent-activity feed',
+    'Searchable, filterable and sortable report library',
+    'Arabic-aware search normalisation',
+    'Scheduled-report list',
+    'Light and dark themes',
+    'English/Arabic localisation with full RTL support',
+    'Adaptive navigation (drawer on phones, rail on tablets)',
+    'Loading, empty, no-matches and error states with retry',
+  ],
+
+  featuresAr: [
+    'بطاقات مؤشرات أداء مع مقارنة الفترات',
+    'رسم بياني لاتجاه الإيرادات مع تلميحات تفاعلية',
+    'قائمة بالأنشطة الأخيرة',
+    'مكتبة تقارير قابلة للبحث والتصفية والفرز',
+    'بحث يراعي خصائص اللغة العربية',
+    'قائمة بالتقارير المجدولة',
+    'وضعان فاتح وداكن',
+    'دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين لليسار',
+    'تنقل متكيف (قائمة جانبية على الهواتف، شريط تنقل على الأجهزة اللوحية)',
+    'حالات تحميل وفراغ وعدم تطابق وخطأ مع إمكانية إعادة المحاولة',
+  ],
+
+  focusEn:
+      'Clean Architecture with a feature-first layout, dependency inversion enforced by architecture tests, Bloc (Cubit) state management, and a bilingual, RTL-ready design system.',
+
+  focusAr:
+      'بنية Clean Architecture بتنظيم Feature-First، مع فصل التبعيات يتم التحقق منه عبر اختبارات معمارية، وإدارة الحالة باستخدام Bloc (Cubit)، ونظام تصميم ثنائي اللغة يدعم التخطيط من اليمين لليسار.',
+
+  stack: [
+    'Flutter',
+    'Dart',
+    'flutter_bloc (Cubit)',
+    'go_router',
+    'get_it',
+    'shared_preferences',
+    'flutter_localizations',
+    'intl',
+    'fl_chart',
+    'equatable',
+  ],
+
+  demoUrl: 'https://damas-dashboard.netlify.app/',
+  codeUrl: 'https://github.com/SaadSinan-dev/DamasDashboard',
+  imageKeys: [
+    'project56',
+    'project55',
+    'project58',
+    'project59',
+  ],
+},
+{
+  id: 6,
+  index: '02',
+  titleEn: 'Hello Chat',
+  titleAr: 'هيلو تشات',
+
+  descShortEn:
+      'A Flutter messaging client UI with conversations, threads, contacts and call history, built on Clean Architecture with a locally persisted, reactive data layer.',
+
+  descShortAr:
+      'واجهة تطبيق مراسلة مبنية باستخدام Flutter تتضمن المحادثات والخيوط وجهات الاتصال وسجل المكالمات، مبنية على Clean Architecture مع طبقة بيانات محلية تفاعلية.',
+
+  descLongEn:
+      'Hello Chat is a UI-and-architecture messaging project with no real chat server behind it: the data layer is a local, reactive, persisted store deliberately shaped like a remote one, so a real backend can later be added by changing only the data layer and its dependency registration. It covers a conversation list with pinning, muting, unread counts and archiving; message threads with day separators, quoted replies and simulated read receipts; a searchable contacts list; and call history. The app is built with Clean Architecture in a feature-first layout, using Bloc (Cubit) for state management, get_it for dependency injection and go_router for navigation, with English/Arabic localisation and full RTL support.',
+
+  descLongAr:
+      'هيلو تشات هو مشروع مراسلة يركّز على الواجهة والبنية المعمارية، بدون خادم محادثة حقيقي خلفه؛ حيث تعتمد طبقة البيانات على تخزين محلي تفاعلي ومستمر صُمم عمدًا ليحاكي سلوك خادم حقيقي، بحيث يمكن لاحقًا ربط خادم فعلي بتعديل طبقة البيانات وتسجيل التبعيات فقط. يغطي التطبيق قائمة محادثات مع التثبيت وكتم الإشعارات وعدّاد الرسائل غير المقروءة والأرشفة، وخيوط رسائل مع فواصل يومية وردود مقتبسة وإيصالات قراءة محاكاة، بالإضافة إلى قائمة جهات اتصال قابلة للبحث وسجل مكالمات. بُني التطبيق باستخدام Clean Architecture بتنظيم Feature-First، مع Bloc (Cubit) لإدارة الحالة، وget_it لحقن التبعيات، وgo_router للتنقل، إلى جانب دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين إلى اليسار.',
+
+  featuresEn: [
+    'Conversation list with pinning, muting, unread counts and archive with undo',
+    'Full-text search across titles and message previews with filters and sorting',
+    'Message threads with day separators, quoted replies and soft delete',
+    'Simulated sent → delivered → read receipts',
+    'Messages persist across app restarts',
+    'Searchable, alphabetically sectioned contacts list',
+    'Call history with an All/Missed filter',
+    'Light and dark themes',
+    'English/Arabic localisation with full RTL support',
+    'Responsive layout with bottom navigation and a navigation rail on larger screens',
+    'Loading, empty and typed error states with retry where applicable',
+  ],
+
+  featuresAr: [
+    'قائمة محادثات مع التثبيت وكتم الإشعارات وعدّاد الرسائل غير المقروءة والأرشفة القابلة للتراجع عنها',
+    'بحث نصي شامل في العناوين ومعاينات الرسائل مع خيارات تصفية وفرز',
+    'خيوط رسائل مع فواصل يومية وردود مقتبسة وحذف ناعم',
+    'إيصالات محاكاة لحالة الإرسال والتسليم والقراءة',
+    'استمرارية حفظ الرسائل بعد إعادة تشغيل التطبيق',
+    'قائمة جهات اتصال قابلة للبحث ومقسمة أبجديًا',
+    'سجل مكالمات مع تصفية بين الكل والفائتة',
+    'وضعان فاتح وداكن',
+    'دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين لليسار',
+    'تصميم متجاوب مع شريط تنقل سفلي وشريط تنقل جانبي على الشاشات الكبيرة',
+    'حالات تحميل وفراغ وأخطاء مصنّفة مع إمكانية إعادة المحاولة عند الحاجة',
+  ],
+
+  focusEn:
+      'Clean Architecture with a feature-first layout, dependency inversion between a domain-defined repository contract and its data implementation, Bloc (Cubit) state management, and a reactive local persistence layer designed to mirror a remote backend.',
+
+  focusAr:
+      'بنية Clean Architecture بتنظيم Feature-First، مع فصل التبعيات بين عقد المستودع المعرّف في طبقة Domain وتنفيذه في طبقة Data، وإدارة الحالة باستخدام Bloc (Cubit)، وطبقة تخزين محلية تفاعلية مصممة لمحاكاة سلوك خادم حقيقي.',
+
+  stack: [
+    'Flutter',
+    'Dart',
+    'flutter_bloc (Cubit)',
+    'get_it',
+    'go_router',
+    'shared_preferences',
+    'equatable',
+    'flutter_localizations',
+  ],
+
+  demoUrl: 'https://hello-chat-message.netlify.app/',
+  codeUrl: 'https://github.com/SaadSinan-dev/HelloChat',
+  imageKeys: [
+    'project66',
+    'project67',
+    'project699',
+    'project69',
+  ],
+},
+{
+  id: 7,
+  index: '03',
+  titleEn: 'My Tasks',
+  titleAr: 'مهامي',
+
+  descShortEn:
+      'An offline-first Flutter task manager with search, filtering, sorting and completion analytics, running on mobile, web and desktop from one codebase.',
+
+  descShortAr:
+      'تطبيق لإدارة المهام مبني باستخدام Flutter يعمل بدون اتصال بالإنترنت، يتضمن البحث والتصفية والفرز وتحليلات الإنجاز، ويعمل على الهواتف والويب وسطح المكتب من قاعدة كود واحدة.',
+
+  descLongEn:
+      'My Tasks is an offline-first task manager with no backend, account or network dependency — every task lives on the device — running on Android, iOS, web, Windows, macOS and Linux from a single codebase. It lets users create, edit, search, filter and sort tasks, and provides an overview of progress due today, completion streaks and upcoming tasks, along with analytics on completions over 7- or 30-day windows and a breakdown by category. The app is built with Clean Architecture in a feature-first layout, using Bloc (Cubit) for state management, get_it for dependency injection and go_router for navigation, with English/Arabic localisation, full RTL support and adaptive layouts from phone to desktop.',
+
+  descLongAr:
+      'ماي تاسكس هو تطبيق لإدارة المهام يعمل بالكامل بدون اتصال بالإنترنت، دون الحاجة لحساب أو خادم — إذ تبقى جميع المهام مخزنة على الجهاز — ويعمل على أندرويد وiOS والويب وWindows وmacOS وLinux من قاعدة كود واحدة. يتيح التطبيق للمستخدم إنشاء المهام وتعديلها والبحث فيها وتصفيتها وفرزها، ويعرض نظرة عامة على التقدّم المطلوب إنجازه اليوم، وسلسلة أيام الإنجاز المتتالية، والمهام القادمة، بالإضافة إلى تحليلات لعدد المهام المنجزة خلال فترة 7 أو 30 يومًا مع تصنيف حسب الفئة. بُني التطبيق باستخدام Clean Architecture بتنظيم Feature-First، مع Bloc (Cubit) لإدارة الحالة، وget_it لحقن التبعيات، وgo_router للتنقل، إلى جانب دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين لليسار وتصميم متكيف من الهاتف إلى سطح المكتب.',
+
+  featuresEn: [
+    'Create, edit, view and delete tasks with priority, category and due date',
+    'Complete/un-complete tracked as a timestamp',
+    'Search across titles and notes',
+    'Filter by all, active, completed or overdue',
+    'Sort by newest, due date, priority or title',
+    'Swipe to delete with confirmation and undo',
+    'Progress overview for tasks due today, with live active/completed/overdue counts',
+    'Completion streak tracking',
+    'Completion analytics over 7- or 30-day windows, with a breakdown by category',
+    'Light and dark themes',
+    'English/Arabic localisation with full RTL support',
+    'Adaptive navigation across phone, tablet and desktop',
+    'Runs on Android, iOS, web, Windows, macOS and Linux from one codebase',
+  ],
+
+  featuresAr: [
+    'إنشاء المهام وتعديلها وعرضها وحذفها مع تحديد الأولوية والفئة وتاريخ الاستحقاق',
+    'تتبّع حالة الإنجاز عبر طابع زمني بدلاً من مؤشر بسيط',
+    'بحث في عناوين المهام وملاحظاتها',
+    'تصفية حسب الكل أو النشطة أو المكتملة أو المتأخرة',
+    'فرز حسب الأحدث أو تاريخ الاستحقاق أو الأولوية أو العنوان',
+    'حذف بالسحب مع تأكيد وإمكانية التراجع',
+    'نظرة عامة على التقدم في مهام اليوم مع عدادات مباشرة للنشطة والمكتملة والمتأخرة',
+    'تتبع سلسلة أيام الإنجاز المتتالية',
+    'تحليلات إنجاز خلال فترة 7 أو 30 يومًا مع تصنيف حسب الفئة',
+    'وضعان فاتح وداكن',
+    'دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين لليسار',
+    'تنقل متكيف بين الهاتف والجهاز اللوحي وسطح المكتب',
+    'يعمل على أندرويد وiOS والويب وWindows وmacOS وLinux من قاعدة كود واحدة',
+  ],
+
+  focusEn:
+      'Clean Architecture with a feature-first layout, dependency inversion between domain and data layers, Bloc (Cubit) state management, and an offline-first design with a fully bilingual, RTL-ready, adaptive UI.',
+
+  focusAr:
+      'بنية Clean Architecture بتنظيم Feature-First، مع فصل التبعيات بين طبقتي Domain وData، وإدارة الحالة باستخدام Bloc (Cubit)، وتصميم يعمل بالكامل بدون اتصال بالإنترنت مع واجهة ثنائية اللغة ومتكيفة تدعم التخطيط من اليمين لليسار.',
+
+  stack: [
+    'Flutter',
+    'Dart',
+    'flutter_bloc (Cubit)',
+    'get_it',
+    'go_router',
+    'shared_preferences',
+    'flutter_localizations',
+    'fl_chart',
+    'equatable',
+  ],
+
+  demoUrl: 'https://mydaily-tasks.netlify.app/',
+  codeUrl: 'https://github.com/SaadSinan-dev/MyTasks',
+  imageKeys: [
+    'project78',
+    'project77',
+    'project799',
+    'project789',
+  ],
+},
+{
+  id: 1,
+  index: '04',
   titleEn: 'Damas Coffee',
   titleAr: 'القهوة الدمشقية',
 
@@ -158,10 +379,9 @@ export const projects = [
     'project3',
   ],
 },
-
 {
   id: 2,
-  index: '02',
+  index: '05',
   titleEn: 'My Taxi',
   titleAr: 'التكسي السوري',
 
@@ -241,16 +461,15 @@ export const projects = [
   demoUrl: 'https://syriataxi.netlify.app/',
   codeUrl: 'https://github.com/SaadSenan-dev/MyTaxi',
   imageKeys: [
-
     'projectt11',
-      'projectt26',
+    'projectt26',
     'projectt25',
     'projectt22',
   ],
 },
- {
+{
   id: 3,
-  index: '03',
+  index: '06',
   titleEn: 'My Doctor',
   titleAr: 'تطبيق لمركز طبي',
 
@@ -333,7 +552,7 @@ export const projects = [
 },
 {
   id: 4,
-  index: '04',
+  index: '07',
   titleEn: 'Syrian Cart',
   titleAr: 'السلة السورية',
 
@@ -407,12 +626,9 @@ export const projects = [
   demoUrl: 'https://syrian-cart.netlify.app/',
   codeUrl: 'https://github.com/SaadSinan-dev/SyrianCart',
   imageKeys: [
-     'project14',
+    'project14',
     'project13',
-
-
     'project15',
   ],
 },
-
 ];

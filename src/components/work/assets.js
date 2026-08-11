@@ -17,6 +17,22 @@ import project10 from '../../assets/projects/project10.png';
 import project13 from '../../assets/projects/project13.png';
 import project14 from '../../assets/projects/project14.png';
 import project15 from '../../assets/projects/project15.png';
+import project55 from '../../assets/projects/project55.png';
+import project56 from '../../assets/projects/project56.png';
+import project57 from '../../assets/projects/projecct57.png';
+import project58 from '../../assets/projects/project58.png';
+import project59 from '../../assets/projects/project59.png';
+import project66 from '../../assets/projects/project66.png';
+import project67 from '../../assets/projects/project67.png';
+import project68 from '../../assets/projects/project68.png';
+import project69 from '../../assets/projects/project69.png';
+import project77 from '../../assets/projects/project77.png';
+import project78 from '../../assets/projects/project78.png';
+import project79 from '../../assets/projects/project79.png';
+import project699 from '../../assets/projects/project699.png';
+import project789 from '../../assets/projects/project789.png';
+import project799 from '../../assets/projects/project799.png';
+import project7999 from '../../assets/projects/project7999.png';
 
 import projectt11 from '../../assets/projects/projectt11.png';
 import projectt22 from '../../assets/projects/projectt22.png';
@@ -40,6 +56,26 @@ export const PROJECT_ASSETS = {
   projectt22,
   projectt25,
   projectt26,
+  project55,
+    project56,
+  project57,
+    project58,
+  project59,
+    project66,
+project67,
+project68,
+project69,
+project78,
+project77,
+project79,
+
+project699,
+project789,
+project799,
+project7999,
+
+
+
 };
 
 /** Resolves a project's image keys to real sources, dropping any that are missing. */

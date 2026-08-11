@@ -159,7 +159,7 @@ export default function Work() {
         <SectionHeader
           index="03"
           label={t('Selected work', 'الأعمال المختارة')}
-          lines={t(['Four projects,', 'end to end.'], ['أربعة مشاريع،', 'من الفكرة للتنفيذ.'])}
+          lines={t(['My projects,', 'end to end.'], [' مشاريعي،', 'من الفكرة للتنفيذ.'])}
           description={t(
             'Mobile applications designed and built with Flutter. Open any entry for the full record.',
             'تطبيقات موبايل صممتها وبنيتها بـ Flutter. افتح أي مشروع لعرض التفاصيل الكاملة.'
