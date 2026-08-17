@@ -69,9 +69,170 @@ export const principles = [
 // project's own description — no metrics, outcomes or claims have been added.
 
 export const projects = [
-{
-  id: 5,
+  {
+  id: 1,
   index: '01',
+  titleEn: 'Mashwarak',
+  titleAr: 'مشوارك',
+
+  descShortEn:
+      'An Arabic-first ride-hailing platform for Syria: one Flutter binary containing both the rider and the driver application, backed by a Supabase/PostgreSQL schema that owns the trip lifecycle, the pricing and the commission split instead of trusting the client with them.',
+
+  descShortAr:
+      'منصة عربية لحجز الرحلات مصممة لسوريا: تطبيق Flutter واحد يضم تجربتي الراكب والسائق، تعتمد على قاعدة بيانات Supabase/PostgreSQL تتولى دورة حياة الرحلة والتسعير واحتساب العمولة داخل الخادم بدلاً من ترك ذلك للتطبيق.',
+
+  descLongEn:
+      'Mashwarak is a two-sided ride-hailing product: one Flutter binary containing a full rider application and a full driver application, with a Supabase/PostgreSQL backend where the trip state machine, the fare calculation, the commission split and the driver-eligibility rules are implemented in the database rather than in the client. The client has no write authority over trips at all. Every state transition goes through a SECURITY DEFINER RPC that takes a row lock, decides the outcome itself and returns a result code the app maps onto a typed enum, which is what makes a duplicate tap or a retry after a dropped response safe. I built both applications and the backend: 14 features on feature-first Clean Architecture with BLoC and get_it, 24 documented migrations, 103 Postgres functions and 63 RLS policies, live trip tracking over Supabase Realtime, PostGIS proximity matching, road routing through Google Routes API v2, push delivery through a Deno Edge Function and FCM, and an Arabic-template localisation layer with native RTL. The suite runs 1,293 passing unit and widget tests with zero analyzer issues.',
+
+  descLongAr:
+      'مشوارك منتج نقل ثنائي الجانب: تطبيق Flutter واحد يحتوي على تطبيق كامل للراكب وآخر كامل للسائق، مع خلفية Supabase/PostgreSQL يُنفَّذ داخلها مخطط حالات الرحلة وحساب الأجرة وتقسيم العمولة وشروط أهلية السائق، لا داخل التطبيق. لا يملك التطبيق أي صلاحية كتابة على جدول الرحلات، وكل انتقال حالة يمر عبر دالة SECURITY DEFINER تأخذ قفلاً على السطر وتقرر النتيجة بنفسها وتعيد رمز نتيجة يحوّله التطبيق إلى نوع محدد، وهو ما يجعل الضغط المزدوج أو إعادة المحاولة بعد انقطاع الاستجابة عملية آمنة. بنيتُ التطبيقين والخلفية معاً: 14 ميزة وفق Clean Architecture منظمة حسب الميزات مع BLoC وget_it، و24 ملف ترحيل موثقاً، و103 دوال في Postgres، و63 سياسة RLS، وتتبعاً حياً للرحلة عبر Supabase Realtime، ومطابقة قرب جغرافي عبر PostGIS، ورسم مسارات طرق عبر Google Routes API v2، وإشعارات عبر Edge Function بلغة Deno وFCM، وطبقة تعريب أساسها العربية مع دعم RTL أصيل. تعمل مجموعة الاختبارات بـ 1,293 اختباراً ناجحاً دون أي ملاحظة من محلل الشيفرة.',
+
+  highlightsEn: [
+    {
+      title: 'The trip lifecycle belongs to the server',
+      text: 'Signed-in clients hold SELECT on trips and nothing else. Every transition is a SECURITY DEFINER RPC that takes a row lock, decides the outcome and returns a machine-readable result code, and the state machine is written once in SQL and enforced by a guard trigger.',
+    },
+    {
+      title: 'Concurrency treated as the default case',
+      text: 'Two drivers accepting the same request are serialised by SELECT ... FOR UPDATE, and the RPC distinguishes ALREADY_YOURS from ALREADY_ACCEPTED. Idempotent codes are treated as success, so a double tap or a retry after a dropped response is safe. This replaced an implementation that inferred the outcome from an update row count, where zero rows had six possible causes.',
+    },
+    {
+      title: 'Server-side pricing with immutable history',
+      text: 'The rider app never sends a price. The backend computes the fare and snapshots the rate card onto the trip row, completion recomputes from that snapshot, and triggers make the completed financials and the commission split immutable, so a later price change cannot restate past trips.',
+    },
+    {
+      title: 'Security where RLS structurally cannot reach',
+      text: '63 RLS policies control row access, and trigger-based guards cover what policies cannot: verification status, wallet balance, rating and trip counts refuse client-side writes by testing current_user. Identity documents live in a private bucket under a per-profile path contract, with an insert trigger that verifies each referenced object exists and belongs to the applicant.',
+    },
+    {
+      title: 'Realtime and location engineering',
+      text: 'One Realtime subscription for the active trip and one keyed driver-location subscription, with a terminal trip surfaced exactly once. Driver positions come from a distance-filtered stream rate-limited to one write per 8 seconds, matching runs on PostGIS ST_DWithin, and road routes come from Google Routes API v2 behind a shared cache with a re-fetch threshold and a failure cooldown that draws nothing rather than a fabricated line.',
+    },
+    {
+      title: 'Typed failures and Arabic-first localisation',
+      text: 'Six failure families are enums mapped one to one from server result codes, and validators return typed errors, so no layer below presentation ever authors a sentence. Arabic is the ARB template rather than the translation, untranslated keys fail the build, and text direction is derived from the active locale.',
+    },
+    {
+      title: 'Tested and analyzer-clean',
+      text: '1,293 passing unit and widget tests across 66 files, zero flutter analyze issues, a contract test keeping the Dart enums in step with the SQL CHECK sets, and a written manual QA plan covering the race conditions and RLS negative cases that unit tests cannot reach.',
+    },
+  ],
+
+  highlightsAr: [
+    {
+      title: 'دورة حياة الرحلة يملكها الخادم',
+      text: 'لا يملك المستخدم المسجَّل سوى صلاحية القراءة على جدول الرحلات. كل انتقال حالة يتم عبر دالة SECURITY DEFINER تأخذ قفلاً على السطر وتقرر النتيجة وتعيد رمز نتيجة واضحاً، ومخطط الحالات مكتوب مرة واحدة في SQL ويفرضه مشغل حارس.',
+    },
+    {
+      title: 'التزامن كحالة أساسية لا استثنائية',
+      text: 'عند ضغط سائقَين على الطلب نفسه يفصل القفل SELECT ... FOR UPDATE بين الطلبين، وتميّز الدالة بين "الرحلة لك أصلاً" و"قبِلها سائق آخر". تُعامل الرموز المتكررة كنجاح، ما يجعل الضغط المزدوج أو إعادة المحاولة بعد انقطاع الاستجابة آمناً. وقد استبدل هذا تنفيذاً سابقاً كان يستنتج النتيجة من عدد الأسطر المعدّلة، حيث كان للصفر ستة أسباب محتملة.',
+    },
+    {
+      title: 'تسعير من الخادم وسجل مالي غير قابل للتعديل',
+      text: 'لا يرسل تطبيق الراكب أي سعر. يحسب الخادم الأجرة وينسخ بطاقة التعرفة السارية إلى سطر الرحلة، ويعاد الحساب عند الإنهاء من هذه النسخة، وتمنع المشغلات تعديل الأرقام المالية وحصة العمولة بعد الإتمام، فلا يستطيع تغيير سعر لاحق أن يعيد كتابة رحلات سابقة.',
+    },
+    {
+      title: 'حماية في المواضع التي لا تصلها سياسات RLS',
+      text: '63 سياسة RLS تضبط الوصول على مستوى الأسطر، ومشغلات مخصصة تغطي ما لا تستطيع السياسات تغطيته: حالة التوثيق ورصيد المحفظة والتقييم وعدد الرحلات ترفض أي كتابة من جهة التطبيق عبر فحص current_user. ووثائق الهوية محفوظة في حاوية خاصة ضمن مسار مرتبط بحساب صاحبها، مع مشغل إدخال يتحقق من وجود الملف فعلياً ومن عائديته لمقدّم الطلب.',
+    },
+    {
+      title: 'هندسة البث الحي والموقع',
+      text: 'اشتراك واحد بالبث الحي للرحلة النشطة واشتراك واحد لموقع السائق، مع إظهار الرحلة المنتهية مرة واحدة فقط. مواقع السائق تأتي من تدفق مقيّد بالمسافة ومحدود بكتابة واحدة كل 8 ثوانٍ، والمطابقة الجغرافية تتم عبر ST_DWithin في PostGIS، ومسارات الطرق من Google Routes API v2 خلف ذاكرة تخزين مشتركة مع حد لإعادة الطلب وفترة تهدئة عند الفشل لا يُرسم فيها أي خط بدلاً من رسم خط غير حقيقي.',
+    },
+    {
+      title: 'أخطاء ذات أنواع محددة وتعريب من الأساس',
+      text: 'ست عائلات من الأخطاء ممثلة بأنواع محددة ومطابقة واحدة لواحدة لرموز نتائج الخادم، والتحقق من النماذج يعيد أخطاء مصنفة، فلا تكتب أي طبقة تحت طبقة العرض جملة موجهة للمستخدم. العربية هي لغة المصدر في ملفات ARB وليست ترجمة، وأي مفتاح غير مترجم يوقف البناء، واتجاه الواجهة مشتق من اللغة الفعالة.',
+    },
+    {
+      title: 'اختبارات ناجحة وتحليل بلا ملاحظات',
+      text: '1,293 اختبار وحدة وواجهة ناجح في 66 ملفاً، وصفر ملاحظات من flutter analyze، واختبار تعاقد يبقي الأنواع في Dart متوافقة مع قيود CHECK في قاعدة البيانات، إضافة إلى خطة اختبار يدوية تغطي حالات التزامن واختبارات RLS السلبية التي لا تصلها اختبارات الوحدة.',
+    },
+  ],
+
+  featuresEn: [
+    'Rider and driver applications in one Flutter binary',
+    'Phone and OTP authentication with canonical phone identity',
+    'Trip state machine owned by the database',
+    'Row-locked accept with idempotent result codes',
+    'Server-quoted fares with snapshotted rate cards',
+    'Commission split and driver wallet ledger',
+    'Live trip tracking over Supabase Realtime',
+    'Live driver marker and road routes on Google Maps',
+    'PostGIS proximity matching for nearby requests',
+    'Driver online status, service area and pickup radius',
+    'Driver application with document upload and e-signature',
+    'Signed PDF generation for driver applications',
+    'Trip history, fare summary and driver rating',
+    'Push notifications via FCM and a Deno Edge Function',
+    'Row Level Security with trigger-based column guards',
+    'Private document storage behind signed URLs',
+    'Admin operations exposed as database RPCs',
+    'Arabic-first localisation with locale-derived RTL',
+    'Light and dark themes on a tokenized design system',
+    'Android app shortcut and native floating bubble for drivers',
+  ],
+
+  featuresAr: [
+    'تطبيقا الراكب والسائق ضمن تطبيق Flutter واحد',
+    'مصادقة عبر رقم الهاتف ورمز تحقق مع توحيد صيغة الرقم',
+    'مخطط حالات الرحلة تديره قاعدة البيانات',
+    'قبول الرحلة بقفل على السطر مع رموز نتائج آمنة عند التكرار',
+    'تسعير من الخادم مع نسخ التعرفة إلى سطر الرحلة',
+    'احتساب العمولة ودفتر محفظة السائق',
+    'تتبع حي للرحلة عبر Supabase Realtime',
+    'مؤشر حي للسائق ومسار طريق على خرائط Google',
+    'مطابقة الطلبات القريبة جغرافياً عبر PostGIS',
+    'حالة اتصال السائق ونطاق الخدمة ونصف قطر الاستلام',
+    'طلب انضمام السائق مع رفع الوثائق والتوقيع الإلكتروني',
+    'توليد ملف PDF موقّع لطلب انضمام السائق',
+    'سجل الرحلات وملخص الأجرة وتقييم السائق',
+    'إشعارات فورية عبر FCM ودالة Edge بلغة Deno',
+    'أمان على مستوى الأسطر مع حماية أعمدة عبر المشغلات',
+    'تخزين خاص للوثائق عبر روابط موقّتة موقّعة',
+    'عمليات الإدارة عبر دوال RPC في قاعدة البيانات',
+    'تعريب أساسه العربية مع اتجاه واجهة مشتق من اللغة',
+    'وضع فاتح وداكن ضمن نظام تصميم موحد',
+    'اختصار تطبيق على أندرويد وفقاعة عائمة أصلية للسائق',
+  ],
+
+  focusEn:
+      'Backend-owned business logic, distributed-systems safety, PostgreSQL security design, feature-first Clean Architecture with BLoC, realtime and location-heavy mobile UX, and Arabic-first internationalisation.',
+
+  focusAr:
+      'منطق أعمال يملكه الخادم، وأمان في مواجهة مشكلات التزامن، وتصميم أمني في PostgreSQL، وبنية Clean Architecture منظمة حسب الميزات مع BLoC، وواجهات تعتمد على البث الحي والموقع، وتعريب كامل من الأساس مع دعم RTL.',
+
+  stack: [
+    'Flutter',
+    'Dart',
+    'flutter_bloc (BLoC + Cubit)',
+    'Clean Architecture',
+    'get_it',
+    'go_router',
+    'Supabase',
+    'PostgreSQL 17',
+    'PostGIS',
+    'Supabase Realtime',
+    'Row Level Security',
+    'Deno Edge Functions',
+    'Google Maps',
+    'Google Routes API v2',
+    'Firebase Cloud Messaging',
+    'Kotlin (Android)',
+  ],
+
+  demoUrl: 'https://mashwarak.netlify.app/',
+  codeUrl: 'https://github.com/SaadSinan-dev/Mashwarak-Taxi',
+  imageKeys: [
+    'projectt11',
+    'projectt22',
+    'projectt25',
+    'projectt27',
+    'projectt28',
+  ],
+},
+{
+  id: 2,
+  index: '02',
   titleEn: 'Damas Dashboard',
   titleAr: 'لوحة تحكم داماس',
 
@@ -142,8 +303,8 @@ export const projects = [
   ],
 },
 {
-  id: 6,
-  index: '02',
+  id: 3,
+  index: '03',
   titleEn: 'Hello Chat',
   titleAr: 'هيلو تشات',
 
@@ -214,8 +375,8 @@ export const projects = [
   ],
 },
 {
-  id: 7,
-  index: '03',
+  id: 4,
+  index: '04',
   titleEn: 'My Tasks',
   titleAr: 'مهامي',
 
@@ -291,8 +452,8 @@ export const projects = [
   ],
 },
 {
-  id: 1,
-  index: '04',
+  id: 5,
+  index: '05',
   titleEn: 'Damas Coffee',
   titleAr: 'القهوة الدمشقية',
 
@@ -379,96 +540,9 @@ export const projects = [
     'project3',
   ],
 },
+
 {
-  id: 2,
-  index: '05',
-  titleEn: 'My Taxi',
-  titleAr: 'التكسي السوري',
-
-  descShortEn:
-      'A production-oriented Flutter foundation for a ride-hailing application, focused on Clean Architecture, Cubit-based authentication, bilingual theming, and a reusable tokenized design system.',
-
-  descShortAr:
-      'أساس برمجي احترافي لتطبيق حجز سيارات مبني باستخدام Flutter، يركز على Clean Architecture، وإدارة حالة المصادقة باستخدام Cubit، ودعم العربية والإنجليزية، ونظام تصميم مخصص وقابل لإعادة الاستخدام.',
-
-  descLongEn:
-      'A scalable Flutter foundation for a ride-hailing application, built around feature-first Clean Architecture and Cubit-based state management. The project establishes a reusable design system with centralized colors, spacing, typography, light and dark themes, and locale-aware Arabic and English typography. It also includes a structured authentication flow, centralized routing, form validation setup, an animated navigation drawer, and reusable application-level components. The current repository focuses on the architectural foundation and authentication experience, while ride booking, maps, wallet, ride history, and other product features remain part of the planned build-out.',
-
-  descLongAr:
-      'أساس برمجي قابل للتوسع لتطبيق حجز سيارات مبني باستخدام Flutter، يعتمد على بنية Clean Architecture منظمة حسب الميزات وإدارة الحالة باستخدام Cubit. يتضمن المشروع نظام تصميم موحداً يحتوي على الألوان والمسافات والخطوط، مع دعم كامل للوضع الفاتح والداكن وتبديل الخطوط تلقائياً حسب اللغة العربية أو الإنجليزية. كما يتضمن نظام مصادقة منظم، وتنقلاً مركزياً بين الصفحات، وتجهيزاً للتحقق من النماذج، وقائمة جانبية متحركة، ومكونات مشتركة قابلة لإعادة الاستخدام. تركز النسخة الحالية على الأساس المعماري وتجربة المصادقة، بينما لا تزال ميزات حجز الرحلات والخرائط والمحفظة وسجل الرحلات وغيرها ضمن مراحل التطوير القادمة.',
-
-  featuresEn: [
-    'Clean Architecture foundation',
-    'Feature-first project structure',
-    'Cubit-based authentication',
-    'Login and sign-up state management',
-    'Async authentication states',
-    'Light and dark theme support',
-    'Runtime theme switching',
-    'Centralized design tokens',
-    'Custom color system',
-    'Custom spacing system',
-    'Custom typography system',
-    'Arabic and English support',
-    'Locale-aware font switching',
-    'Centralized named routing',
-    'Route-level BlocProvider integration',
-    'Animated navigation drawer',
-    'Staggered drawer animations',
-    'Custom branded app bar',
-    'Form validation setup',
-    'Reusable shared components',
-  ],
-
-  featuresAr: [
-    'أساس مبني وفق Clean Architecture',
-    'بنية Feature-First منظمة',
-    'إدارة المصادقة باستخدام Cubit',
-    'إدارة حالات تسجيل الدخول وإنشاء الحساب',
-    'التعامل مع حالات التحميل والنجاح والخطأ',
-    'دعم الوضع الفاتح والداكن',
-    'تبديل الثيم أثناء تشغيل التطبيق',
-    'نظام تصميم مركزي',
-    'نظام ألوان مخصص',
-    'نظام مسافات موحد',
-    'نظام خطوط مخصص',
-    'دعم اللغتين العربية والإنجليزية',
-    'تبديل الخط تلقائياً حسب اللغة',
-    'نظام تنقل مركزي باستخدام Named Routes',
-    'ربط BlocProvider مع الصفحات عند الحاجة',
-    'قائمة جانبية متحركة',
-    'أنيميشنات متسلسلة للقائمة الجانبية',
-    'App Bar مخصص للهوية البصرية',
-    'تجهيز نظام التحقق من النماذج',
-    'مكونات مشتركة قابلة لإعادة الاستخدام',
-  ],
-
-  focusEn:
-      'Architecture-first development, scalable Clean Architecture, Cubit-based state management, reusable design tokens, bilingual theming, and polished Flutter UI foundations.',
-
-  focusAr:
-      'تطوير يركز على البنية أولاً، Clean Architecture قابلة للتوسع، إدارة حالة باستخدام Cubit، نظام تصميم قابل لإعادة الاستخدام، دعم ثنائي اللغة، وأساس واجهة احترافي باستخدام Flutter.',
-
-  stack: [
-    'Flutter',
-    'Dart',
-    'flutter_bloc',
-    'Cubit',
-    'Clean Architecture',
-    'Material 3',
-  ],
-
-  demoUrl: 'https://syriataxi.netlify.app/',
-  codeUrl: 'https://github.com/SaadSenan-dev/MyTaxi',
-  imageKeys: [
-    'projectt11',
-    'projectt26',
-    'projectt25',
-    'projectt22',
-  ],
-},
-{
-  id: 3,
+  id: 6,
   index: '06',
   titleEn: 'My Doctor',
   titleAr: 'تطبيق لمركز طبي',
