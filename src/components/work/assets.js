@@ -38,6 +38,10 @@ import projectt11 from '../../assets/projects/projectt11.png';
 import projectt22 from '../../assets/projects/projectt22.png';
 import projectt25 from '../../assets/projects/projectt25.png';
 import projectt26 from '../../assets/projects/projectt26.png';
+import pp1 from '../../assets/projects/pp1.png';
+
+import pp2 from '../../assets/projects/pp2.png';
+
 
 export const PROJECT_ASSETS = {
   project2,

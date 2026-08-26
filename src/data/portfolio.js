@@ -305,6 +305,78 @@ export const projects = [
 {
   id: 3,
   index: '03',
+  titleEn: 'Kairo',
+  titleAr: 'كايرو',
+
+  descShortEn:
+      'A multi-platform Flutter task manager whose list, board, calendar and timeline views are four renderings of one query engine, running entirely on-device across six platform targets from a single codebase.',
+
+  descShortAr:
+      'تطبيق لإدارة المهام مبني بـ Flutter، يعرض العمل في أربعة أنماط (قائمة ولوحة وتقويم ومخطط زمني) تنبثق جميعها من محرك استعلام واحد، ويعمل بالكامل على الجهاز عبر ست منصات من قاعدة كود واحدة.',
+
+  descLongEn:
+      'Kairo organises work across projects with task dependencies, recurrence rules, a focus timer and a productivity dashboard. Filtering, sorting and grouping live in a single domain-layer query engine, so moving between the list, board, calendar and timeline views preserves the active query instead of resetting it. The domain layer is pure Dart that imports neither Flutter nor the data layer, features resolve repositories through eleven domain interfaces, and one composition root holds the only reference to a concrete implementation, so replacing local storage with HTTP is a data-layer change plus a single file. Persistence is split by data shape across Hive for the workspace documents, shared_preferences for settings and the platform keychain for the session token, with no backend and no HTTP client in the project.',
+
+  descLongAr:
+      'ينظّم Kairo العمل ضمن مشاريع، مع تبعيات بين المهام وقواعد للتكرار ومؤقّت تركيز ولوحة لقياس الإنتاجية. تعيش عمليات التصفية والفرز والتجميع في محرك استعلام واحد ضمن طبقة الـ Domain، لذا ينتقل المستخدم بين أنماط القائمة واللوحة والتقويم والمخطط الزمني مع بقاء الاستعلام النشط كما هو بدلاً من إعادة ضبطه. طبقة الـ Domain مكتوبة بلغة Dart خالصة لا تستورد Flutter ولا طبقة الـ Data، وتصل الميزات إلى المستودعات عبر إحدى عشرة واجهة معرّفة في الـ Domain، بينما تنفرد نقطة تركيب واحدة بمعرفة التنفيذ الفعلي، ما يجعل استبدال التخزين المحلي بـ HTTP تعديلاً في طبقة الـ Data وملفًا واحدًا فقط. ويُقسَّم التخزين بحسب طبيعة البيانات: Hive لوثائق مساحة العمل، وshared_preferences للإعدادات، وسلسلة مفاتيح النظام لرمز الجلسة، دون أي خادم أو عميل HTTP في المشروع.',
+
+  featuresEn: [
+    'List, Kanban board, calendar and timeline views sharing one filter, sort and grouping state',
+    'Task dependencies with cycle detection and blocked-task resolution',
+    'Recurring tasks with rule-based occurrence expansion',
+    'Focus timer with session history',
+    'Productivity dashboard with a derived score, metric tiles and sparklines',
+    'Completion analytics over 7-, 30- and 90-day ranges',
+    'Global search and a keyboard command palette',
+    'Charts and the brand mark drawn with CustomPainter, without a charting dependency',
+    'Per-breakpoint layouts: on a phone the month grid becomes priority dots with a separate agenda',
+    'Light and dark themes, with reduce-motion honoured across every animation',
+    'Runs on Android, web, Windows, macOS and Linux from one codebase; iOS is configured but not yet built',
+  ],
+
+  featuresAr: [
+    'أربعة أنماط للعرض (قائمة ولوحة كانبان وتقويم ومخطط زمني) تتشارك حالة تصفية وفرز وتجميع واحدة',
+    'تبعيات بين المهام مع كشف الحلقات الدائرية وتحديد المهام المحجوبة',
+    'مهام متكررة مع توسيع المواعيد وفق قواعد التكرار',
+    'مؤقّت تركيز مع سجل للجلسات',
+    'لوحة إنتاجية تعرض درجة محسوبة وبطاقات مؤشرات ورسومًا مصغّرة',
+    'تحليلات إنجاز على مدى 7 أو 30 أو 90 يومًا',
+    'بحث شامل ولوحة أوامر تعمل بالكيبورد',
+    'رسوم بيانية وشعار مرسومة بـ CustomPainter دون الاعتماد على مكتبة رسوم',
+    'تخطيطات تتبدّل حسب نقاط الانكسار: على الهاتف تتحول شبكة الشهر إلى نقاط تدل على الأولوية مع جدول منفصل',
+    'وضعان فاتح وداكن، مع احترام تفضيل تقليل الحركة في كل الرسوم المتحركة',
+    'يعمل على أندرويد والويب وWindows وmacOS وLinux من قاعدة كود واحدة، وiOS مهيّأ لكن لم يُبنَ بعد',
+  ],
+
+  focusEn:
+      'Layered architecture with the dependency direction asserted in the audit: the domain layer imports neither Flutter nor the data layer, and no feature imports data. Riverpod 3 across fourteen features with .select bounding rebuilds, go_router with a single redirect holding navigation authority, a sealed Failure hierarchy carried across layer boundaries as values, and 38 design tokens in a ThemeExtension. Layout correctness is enforced by tests: a matrix renders every route at nine device sizes in both themes and fails on any overflow, which took the app from 716 layout errors to zero.',
+
+  focusAr:
+      'بنية طبقية يُتحقَّق من اتجاه التبعيات فيها ضمن التدقيق: طبقة الـ Domain لا تستورد Flutter ولا طبقة الـ Data، ولا تستورد أي ميزة طبقةَ الـ Data. إدارة الحالة بـ Riverpod 3 عبر أربع عشرة ميزة مع الاعتماد على محدِّد select للحد من إعادة البناء، وgo_router مع إعادة توجيه واحدة تنفرد بصلاحية التنقل، وتسلسل Failure من نوع sealed يعبر حدود الطبقات كقيم، و38 رمزًا تصميميًا ضمن ThemeExtension. وصحّة التخطيط مضمونة باختبارات: مصفوفة تعرض كل مسار على تسعة أحجام أجهزة في الوضعين الفاتح والداكن وتفشل عند أي تجاوز، وقد أخذت التطبيق من 716 خطأ تخطيط إلى صفر.',
+
+  stack: [
+    'Flutter',
+    'Dart',
+    'Riverpod 3',
+    'go_router',
+    'Hive',
+    'shared_preferences',
+    'flutter_secure_storage',
+    'flutter_test / integration_test',
+  ],
+
+  demoUrl: 'https://kario-taskapp.netlify.app/',
+  codeUrl: 'https://github.com/SaadSinan-dev/Kario-TaskApp',
+  imageKeys: [
+    'project78',
+    'project77',
+    'project799',
+    'projectl78',
+  ],
+},
+{
+  id: 4,
+  index: '04',
   titleEn: 'Hello Chat',
   titleAr: 'هيلو تشات',
 
@@ -374,83 +446,7 @@ export const projects = [
     'project69',
   ],
 },
-{
-  id: 4,
-  index: '04',
-  titleEn: 'My Tasks',
-  titleAr: 'مهامي',
 
-  descShortEn:
-      'An offline-first Flutter task manager with search, filtering, sorting and completion analytics, running on mobile, web and desktop from one codebase.',
-
-  descShortAr:
-      'تطبيق لإدارة المهام مبني باستخدام Flutter يعمل بدون اتصال بالإنترنت، يتضمن البحث والتصفية والفرز وتحليلات الإنجاز، ويعمل على الهواتف والويب وسطح المكتب من قاعدة كود واحدة.',
-
-  descLongEn:
-      'My Tasks is an offline-first task manager with no backend, account or network dependency — every task lives on the device — running on Android, iOS, web, Windows, macOS and Linux from a single codebase. It lets users create, edit, search, filter and sort tasks, and provides an overview of progress due today, completion streaks and upcoming tasks, along with analytics on completions over 7- or 30-day windows and a breakdown by category. The app is built with Clean Architecture in a feature-first layout, using Bloc (Cubit) for state management, get_it for dependency injection and go_router for navigation, with English/Arabic localisation, full RTL support and adaptive layouts from phone to desktop.',
-
-  descLongAr:
-      'ماي تاسكس هو تطبيق لإدارة المهام يعمل بالكامل بدون اتصال بالإنترنت، دون الحاجة لحساب أو خادم — إذ تبقى جميع المهام مخزنة على الجهاز — ويعمل على أندرويد وiOS والويب وWindows وmacOS وLinux من قاعدة كود واحدة. يتيح التطبيق للمستخدم إنشاء المهام وتعديلها والبحث فيها وتصفيتها وفرزها، ويعرض نظرة عامة على التقدّم المطلوب إنجازه اليوم، وسلسلة أيام الإنجاز المتتالية، والمهام القادمة، بالإضافة إلى تحليلات لعدد المهام المنجزة خلال فترة 7 أو 30 يومًا مع تصنيف حسب الفئة. بُني التطبيق باستخدام Clean Architecture بتنظيم Feature-First، مع Bloc (Cubit) لإدارة الحالة، وget_it لحقن التبعيات، وgo_router للتنقل، إلى جانب دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين لليسار وتصميم متكيف من الهاتف إلى سطح المكتب.',
-
-  featuresEn: [
-    'Create, edit, view and delete tasks with priority, category and due date',
-    'Complete/un-complete tracked as a timestamp',
-    'Search across titles and notes',
-    'Filter by all, active, completed or overdue',
-    'Sort by newest, due date, priority or title',
-    'Swipe to delete with confirmation and undo',
-    'Progress overview for tasks due today, with live active/completed/overdue counts',
-    'Completion streak tracking',
-    'Completion analytics over 7- or 30-day windows, with a breakdown by category',
-    'Light and dark themes',
-    'English/Arabic localisation with full RTL support',
-    'Adaptive navigation across phone, tablet and desktop',
-    'Runs on Android, iOS, web, Windows, macOS and Linux from one codebase',
-  ],
-
-  featuresAr: [
-    'إنشاء المهام وتعديلها وعرضها وحذفها مع تحديد الأولوية والفئة وتاريخ الاستحقاق',
-    'تتبّع حالة الإنجاز عبر طابع زمني بدلاً من مؤشر بسيط',
-    'بحث في عناوين المهام وملاحظاتها',
-    'تصفية حسب الكل أو النشطة أو المكتملة أو المتأخرة',
-    'فرز حسب الأحدث أو تاريخ الاستحقاق أو الأولوية أو العنوان',
-    'حذف بالسحب مع تأكيد وإمكانية التراجع',
-    'نظرة عامة على التقدم في مهام اليوم مع عدادات مباشرة للنشطة والمكتملة والمتأخرة',
-    'تتبع سلسلة أيام الإنجاز المتتالية',
-    'تحليلات إنجاز خلال فترة 7 أو 30 يومًا مع تصنيف حسب الفئة',
-    'وضعان فاتح وداكن',
-    'دعم كامل للغتين الإنجليزية والعربية مع التخطيط من اليمين لليسار',
-    'تنقل متكيف بين الهاتف والجهاز اللوحي وسطح المكتب',
-    'يعمل على أندرويد وiOS والويب وWindows وmacOS وLinux من قاعدة كود واحدة',
-  ],
-
-  focusEn:
-      'Clean Architecture with a feature-first layout, dependency inversion between domain and data layers, Bloc (Cubit) state management, and an offline-first design with a fully bilingual, RTL-ready, adaptive UI.',
-
-  focusAr:
-      'بنية Clean Architecture بتنظيم Feature-First، مع فصل التبعيات بين طبقتي Domain وData، وإدارة الحالة باستخدام Bloc (Cubit)، وتصميم يعمل بالكامل بدون اتصال بالإنترنت مع واجهة ثنائية اللغة ومتكيفة تدعم التخطيط من اليمين لليسار.',
-
-  stack: [
-    'Flutter',
-    'Dart',
-    'flutter_bloc (Cubit)',
-    'get_it',
-    'go_router',
-    'shared_preferences',
-    'flutter_localizations',
-    'fl_chart',
-    'equatable',
-  ],
-
-  demoUrl: 'https://mydaily-tasks.netlify.app/',
-  codeUrl: 'https://github.com/SaadSinan-dev/MyTasks',
-  imageKeys: [
-    'project78',
-    'project77',
-    'project799',
-    'project789',
-  ],
-},
 {
   id: 5,
   index: '05',
@@ -541,168 +537,5 @@ export const projects = [
   ],
 },
 
-{
-  id: 6,
-  index: '06',
-  titleEn: 'My Doctor',
-  titleAr: 'تطبيق لمركز طبي',
 
-  descShortEn:
-      'A clean, feature-driven Flutter healthcare application for discovering doctors, exploring their profiles, and starting the appointment booking journey. Built with a scalable feature-first architecture and a fully custom skeleton-loading system.',
-
-  descShortAr:
-      'تطبيق طبي أنيق ومبني باستخدام Flutter، يتيح للمستخدمين اكتشاف الأطباء واستعراض ملفاتهم والبدء برحلة حجز الموعد. يعتمد على بنية Feature-First قابلة للتوسع ونظام تحميل هيكلي مخصص بالكامل.',
-
-  descLongEn:
-      'A doctor discovery and appointment-booking UI built with Flutter, featuring a structured home dashboard, specialty filters, favourite and top-doctor sections, detailed doctor profiles, and a persistent booking call-to-action. The project focuses on clean architecture, responsive layouts, centralized routing, and a custom shimmer system built entirely with Flutter core animation APIs. Authentication, booking logic, and backend integration are intentionally scaffolded as future extensions rather than presented as completed functionality.',
-
-  descLongAr:
-      'واجهة تطبيق لاكتشاف الأطباء وبدء عملية حجز المواعيد مبنية باستخدام Flutter، وتتضمن لوحة رئيسية منظمة، وفلاتر للتخصصات، وأقساماً للأطباء المفضلين والأطباء المميزين، وصفحات تفصيلية للأطباء مع زر لبدء الحجز. يركز المشروع على البنية البرمجية المنظمة، والتصميم المتجاوب، ونظام التنقل المركزي، ونظام Shimmer مخصص مبني بالكامل باستخدام أدوات Flutter الأساسية للأنيميشن. تم تجهيز المصادقة ومنطق الحجز وربط الـBackend كأجزاء قابلة للتطوير مستقبلاً وليست وظائف مكتملة في النسخة الحالية.',
-
-  featuresEn: [
-    'Animated splash and onboarding flow',
-    'Custom skeleton loading system',
-    'Home dashboard',
-    'Doctor search interface',
-    'Specialty filter chips',
-    'Favourite doctors grid',
-    'Top doctors list',
-    'Doctor profile and details',
-    'Doctor ratings and specialty information',
-    'Experience, patients and location statistics',
-    'Doctor biography section',
-    'Book appointment call-to-action',
-    'Responsive layouts with ScreenUtil',
-    'Custom shimmer animations',
-    'Centralized named routing',
-    'Safe route argument validation',
-    'Custom application typography',
-  ],
-
-  featuresAr: [
-    'شاشة بداية وواجهة ترحيبية متحركة',
-    'نظام تحميل هيكلي Shimmer مخصص',
-    'لوحة تحكم رئيسية',
-    'واجهة للبحث عن الأطباء',
-    'فلاتر حسب تخصص الطبيب',
-    'شبكة للأطباء المفضلين',
-    'قائمة بأفضل الأطباء',
-    'صفحة تفاصيل الطبيب',
-    'عرض تقييم الطبيب وتخصصه',
-    'عرض سنوات الخبرة وعدد المرضى والموقع',
-    'قسم السيرة الذاتية للطبيب',
-    'زر بدء حجز الموعد',
-    'واجهات متجاوبة باستخدام ScreenUtil',
-    'أنيميشن Shimmer مخصص',
-    'نظام تنقل مركزي باستخدام Named Routes',
-    'التحقق الآمن من بيانات التنقل',
-    'نظام Typography مخصص للتطبيق',
-  ],
-
-  focusEn:
-      'Feature-first architecture, custom skeleton loading, responsive UI, defensive routing, reusable components, and a maintainable Flutter foundation designed for future backend and booking integration.',
-
-  focusAr:
-      'بنية Feature-First منظمة، نظام تحميل هيكلي مخصص، واجهة متجاوبة، نظام تنقل آمن، مكونات قابلة لإعادة الاستخدام، وأساس برمجي قابل للصيانة والتوسع مستقبلاً لربط الـBackend وتنفيذ نظام حجز المواعيد.',
-
-  stack: [
-    'Flutter',
-    'Dart',
-    'flutter_screenutil',
-    'Custom Animations',
-    'Navigator',
-    'setState',
-  ],
-
-  demoUrl: 'https://mydoctor-sy.netlify.app/',
-  codeUrl: 'https://github.com/SaadSinan-dev/MyDoctor',
-  imageKeys: [
-    'project6',
-    'project7',
-    'project8',
-    'project9',
-    'project10',
-  ],
-},
-{
-  id: 4,
-  index: '07',
-  titleEn: 'Syrian Cart',
-  titleAr: 'السلة السورية',
-
-  descShortEn:
-      'A polished Flutter e-commerce application UI featuring product discovery, categories, search, favorites, cart management, and a complete customer-focused shopping flow.',
-
-  descShortAr:
-      'واجهة تطبيق تجارة إلكترونية احترافية مبنية باستخدام Flutter، تتضمن استكشاف المنتجات، التصنيفات، البحث، المفضلة، إدارة السلة، وتجربة تسوق متكاملة للمستخدم.',
-
-  descLongEn:
-      'A production-oriented Flutter e-commerce front-end built with a feature-first architecture, custom design system, reusable UI components, and native Flutter animations. The app covers the customer journey from an animated splash screen and product discovery to product details, favorites, cart management, profile, and checkout. It uses Flutter core APIs for navigation, animations, and state management without relying on external UI or state-management packages.',
-
-  descLongAr:
-      'واجهة متجر إلكتروني متقدمة مبنية باستخدام Flutter، تعتمد على بنية Feature-First مع نظام تصميم مخصص ومكونات واجهة قابلة لإعادة الاستخدام وأنيميشنات مبنية باستخدام أدوات Flutter الأساسية. يغطي التطبيق رحلة المستخدم من شاشة البداية المتحركة واستكشاف المنتجات، إلى تفاصيل المنتج، المفضلة، إدارة السلة، الملف الشخصي، والدفع. يعتمد المشروع على إمكانيات Flutter الأصلية للتنقل والأنيميشن وإدارة الحالة دون الاعتماد على حزم خارجية للواجهات أو إدارة الحالة.',
-
-  featuresEn: [
-    'Animated splash screen',
-    'Custom animated bottom navigation',
-    'Product discovery and categories',
-    'Product search interface',
-    'Product details with hero transition',
-    'Favorites management',
-    'Cart management with quantity controls',
-    'Live cart total calculation',
-    'Product filtering and browsing',
-    'Notification center',
-    'Profile and account settings',
-    'Guest user support',
-    'Login and signup screens',
-    'Checkout flow',
-    'Custom page transitions',
-    'Responsive product grid',
-    'Reusable design system',
-    'Lightweight native Flutter animations',
-  ],
-
-  featuresAr: [
-    'شاشة بداية متحركة',
-    'شريط تنقل سفلي مخصص ومتفاعل',
-    'استكشاف المنتجات والتصنيفات',
-    'واجهة بحث عن المنتجات',
-    'صفحة تفاصيل المنتج مع انتقال Hero',
-    'إدارة المنتجات المفضلة',
-    'إدارة سلة المشتريات والتحكم بالكميات',
-    'حساب إجمالي السلة بشكل مباشر',
-    'تصفح واستكشاف المنتجات',
-    'مركز إشعارات',
-    'الملف الشخصي وإعدادات الحساب',
-    'دعم المستخدم الضيف',
-    'شاشات تسجيل الدخول وإنشاء الحساب',
-    'واجهة الدفع',
-    'انتقالات مخصصة بين الصفحات',
-    'شبكة منتجات متجاوبة',
-    'نظام تصميم مخصص وقابل لإعادة الاستخدام',
-    'أنيميشنات خفيفة مبنية باستخدام Flutter',
-  ],
-
-  focusEn:
-      'Clean feature-first architecture, reusable components, custom animations, responsive UI, and maintainable Flutter code without external UI or state-management packages.',
-
-  focusAr:
-      'بنية Feature-First منظمة، مكونات قابلة لإعادة الاستخدام، أنيميشنات مخصصة، واجهة متجاوبة، وكود Flutter قابل للصيانة دون الاعتماد على حزم خارجية للواجهات أو إدارة الحالة.',
-
-  stack: [
-    'Flutter',
-    'Dart',
-    'Native Flutter Animations',
-    'Custom Routing',
-  ],
-
-  demoUrl: 'https://syrian-cart.netlify.app/',
-  codeUrl: 'https://github.com/SaadSinan-dev/SyrianCart',
-  imageKeys: [
-    'project14',
-    'project13',
-    'project15',
-  ],
-},
 ];
