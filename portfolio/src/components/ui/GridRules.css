@@ -1,0 +1,87 @@
+/* Mineral light: warm paper, soft stone and a trace of sage. These colors are
+   local to the background; foreground and section surface tokens stay intact. */
+.portfolio-background {
+  --ambient-paper: 249 248 244;
+  --ambient-stone: 205 181 149;
+  --ambient-sage: 157 179 163;
+  --ambient-highlight: 255 255 253;
+  --ambient-contour: 138 125 104;
+  background: rgb(var(--ambient-paper));
+  contain: strict;
+}
+
+.dark .portfolio-background {
+  --ambient-paper: 13 14 16;
+  --ambient-stone: 100 84 62;
+  --ambient-sage: 63 89 77;
+  --ambient-highlight: 31 33 35;
+  --ambient-contour: 153 145 128;
+}
+
+.portfolio-background__light {
+  position: absolute;
+  inset: -80px -40px;
+  background:
+    radial-gradient(ellipse at 86% 24%, rgb(var(--ambient-stone) / .30), transparent 53%),
+    radial-gradient(ellipse at 8% 82%, rgb(var(--ambient-sage) / .22), transparent 48%),
+    linear-gradient(118deg, transparent 27%, rgb(var(--ambient-highlight) / .8) 49%, transparent 72%);
+}
+
+/* A few widely spaced contours suggest the edge of a carved light field.
+   The mask keeps the reading area quiet and softens every line at its ends. */
+.portfolio-background__contours {
+  position: absolute;
+  top: -12%;
+  right: -24%;
+  width: 100%;
+  height: 128%;
+  background: radial-gradient(ellipse at 100% 38%,
+    transparent 48%,
+    rgb(var(--ambient-contour) / .12) calc(48% + .5px),
+    transparent calc(48% + 1.5px),
+    transparent 55%,
+    rgb(var(--ambient-contour) / .10) calc(55% + .5px),
+    transparent calc(55% + 1.5px),
+    transparent 63%,
+    rgb(var(--ambient-contour) / .08) calc(63% + .5px),
+    transparent calc(63% + 1.5px),
+    transparent 72%,
+    rgb(var(--ambient-contour) / .06) calc(72% + .5px),
+    transparent calc(72% + 1.5px));
+  mask-image: linear-gradient(165deg, transparent 8%, #000 33%, #000 64%, transparent 91%);
+}
+
+/* One slow settling of the light, rather than a permanent animation loop.
+   Scroll then supplies the movement; gradients themselves are never animated. */
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio-background__light {
+    animation: mineral-light-settle 16s ease-out both;
+  }
+}
+
+@keyframes mineral-light-settle {
+  from { opacity: .45; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 639px) {
+  .portfolio-background__light {
+    background:
+      radial-gradient(ellipse at 100% 20%, rgb(var(--ambient-stone) / .26), transparent 60%),
+      radial-gradient(ellipse at 0% 85%, rgb(var(--ambient-sage) / .18), transparent 55%);
+  }
+
+  .portfolio-background__contours {
+    right: -52%;
+    width: 150%;
+    opacity: .7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-background__light,
+  .portfolio-background__contours {
+    transform: none !important;
+    animation: none !important;
+  }
+}

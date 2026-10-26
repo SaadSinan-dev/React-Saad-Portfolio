@@ -1,3 +1,6 @@
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import './GridRules.css';
+
 /**
  * Column rules for the whole page.
  *
@@ -6,11 +9,20 @@
  * layout is simply made visible. Column count steps up with the breakpoint, so
  * the rhythm matches the content grid rather than fighting it.
  *
- * Fixed and painted once; nothing here repaints on scroll.
+ * The rules stay fixed. Only the atmospheric layers behind them move, using
+ * the existing motion runtime's shared scroll values rather than React state.
  */
 export default function GridRules() {
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const lightY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, -64]);
+  const lightX = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, 28]);
+  const contourY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [0, 36]);
+
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div aria-hidden="true" className="portfolio-background pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <motion.div className="portfolio-background__light" style={{ x: lightX, y: lightY }} />
+      <motion.div className="portfolio-background__contours" style={{ y: contourY }} />
       <div className="shell relative grid h-full grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
         {Array.from({ length: 6 }, (_, i) => (
           <div

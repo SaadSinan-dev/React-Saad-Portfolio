@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { DUR, SPRING } from '../../lib/motion';
 import { useLang } from '../../hooks/useLang';
@@ -25,7 +26,7 @@ export default function ProjectSheet({ project, onClose }) {
   const features = t(project.featuresEn, project.featuresAr);
   const headingId = `project-${project.id}-title`;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-overlay flex items-end justify-center sm:items-center sm:p-6">
       {/* Backdrop */}
       <motion.button
@@ -164,6 +165,7 @@ export default function ProjectSheet({ project, onClose }) {
         </div>
 
       </motion.div>
-    </div>
+    </div>,
+    document.body
   );
 }

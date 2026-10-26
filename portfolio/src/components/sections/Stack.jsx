@@ -75,7 +75,7 @@ function SkillGroup({ group }) {
       aria-labelledby={`stack-${group.id}`}
     >
       <header className="lg:col-span-3">
-        <div className="flex items-baseline gap-3 lg:sticky lg:top-[calc(var(--nav-h)+2rem)]">
+        <div className="flex items-baseline gap-3">
           <span className="label tabular-nums">{group.index}</span>
           <h3 id={`stack-${group.id}`} className="text-sm font-medium tracking-tight">
             {t(group.titleEn, group.titleAr)}
@@ -208,7 +208,7 @@ export default function Stack() {
             </div>
 
             <div className="grid gap-x-10 gap-y-6 py-10 lg:grid-cols-12 lg:items-start lg:py-12">
-              <div className="lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:col-span-3 lg:self-start">
+              <div className="lg:col-span-3 lg:self-start">
                 <span className="label label-ink">{t('Core capabilities', 'القدرات الأساسية')}</span>
                 <p className="mt-4 max-w-measure-tight text-sm text-muted">
                   {t(category.descriptionEn, category.descriptionAr)}

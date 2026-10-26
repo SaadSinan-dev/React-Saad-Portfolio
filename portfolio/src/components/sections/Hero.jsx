@@ -126,7 +126,7 @@ export default function Hero() {
   as="h1"
   animate="mount"
   delay={0.1}
-  lines={t(['Saad Sinan'], ['سعد سنان.'])}
+  lines={t(['Saad Sinan'], ['سعد سنان'])}
   className="display text-display hero-name"
 />
 

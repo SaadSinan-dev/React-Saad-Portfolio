@@ -14,6 +14,8 @@ export function useDarkMode() {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
+    document.querySelector('meta[name="color-scheme"]').setAttribute('content', isDark ? 'dark' : 'light');
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#0d0e10' : '#f8f8f6');
     try {
       localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light');
     } catch {

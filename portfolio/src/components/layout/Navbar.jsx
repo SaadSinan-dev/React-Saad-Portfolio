@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import { useLang } from '../../hooks/useLang';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { DUR, EASE, SPRING } from '../../lib/motion';
 import { Close, Menu, Moon, Sun } from '../ui/Icons';
 
@@ -107,6 +108,7 @@ export default function Navbar({ isDark, setIsDark }) {
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const tabletMenu = useMediaQuery('(min-width: 640px) and (max-width: 1023px)');
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
@@ -117,6 +119,10 @@ export default function Navbar({ isDark, setIsDark }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!tabletMenu) setMenuOpen(false);
+  }, [tabletMenu]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
