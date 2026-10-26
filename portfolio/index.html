@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +10,8 @@
       content="Saad Sinan, software engineering student in Damascus, building React web products, Flutter applications, and backend-integrated systems. Explore projects and get in touch."
     />
     <meta name="author" content="Saad Sinan" />
-    <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#f8f8f6" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d0e10" />
     <link rel="canonical" href="https://saad-dev-portfolio.netlify.app/" />
 
     <meta property="og:type" content="website" />
@@ -44,12 +44,12 @@
     <!-- Applied before paint so the first frame is already in the right theme. -->
     <script>
       (function () {
-        var dark = false;
+        var dark = true;
         var lang = 'en';
         try {
           var saved = localStorage.getItem('portfolio-theme');
           var savedLang = localStorage.getItem('portfolio-lang');
-          dark = saved === 'dark';
+          dark = saved !== 'light';
           lang = savedLang === 'ar' ? 'ar' : 'en';
         } catch (e) {
           /* storage unavailable — fall back to markup defaults */

@@ -61,9 +61,12 @@ function assertPreferences(page, { dark, lang, dir, scheme, color }) {
 }
 
 const englishLight = { dark: false, lang: 'en', dir: 'ltr', scheme: 'light', color: '#f8f8f6' };
+const englishDark = { ...englishLight, dark: true, scheme: 'dark', color: '#0d0e10' };
 
-test('fresh visitors start in English and light mode even when the OS uses dark mode', () => {
-  assertPreferences(browser({ osDark: true }), englishLight);
+test('fresh visitors start in English and dark mode regardless of OS preference', () => {
+  for (const osDark of [false, true]) {
+    assertPreferences(browser({ osDark }), englishDark);
+  }
 });
 
 test('valid explicit language and theme choices survive an OS dark preference', () => {
@@ -77,14 +80,14 @@ test('valid explicit language and theme choices survive an OS dark preference', 
   }
 });
 
-test('unsupported saved values fall back to English and light mode before paint', () => {
+test('unsupported saved values fall back to English and dark mode before paint', () => {
   for (const invalid of ['', 'system', 'fr', 'AR']) {
-    assertPreferences(browser({ theme: invalid, lang: invalid, osDark: true }), englishLight);
+    assertPreferences(browser({ theme: invalid, lang: invalid, osDark: true }), englishDark);
   }
 });
 
-test('unavailable storage retains English and light metadata before paint', () => {
-  assertPreferences(browser({ storageUnavailable: true, osDark: true }), englishLight);
+test('unavailable storage retains English and dark metadata before paint', () => {
+  assertPreferences(browser({ storageUnavailable: true, osDark: true }), englishDark);
 });
 
 test('theme toggles update the painted theme, browser metadata and persisted choice together', () => {
