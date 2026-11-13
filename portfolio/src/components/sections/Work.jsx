@@ -10,6 +10,7 @@ import { usePublicProjects } from '../../hooks/useProjects';
 import { STAGGER, VIEWPORT, stagger, rise } from '../../lib/motion';
 import SectionHeader from '../ui/SectionHeader';
 import Reveal from '../ui/Reveal';
+import { DevicePreview } from '../work/DevicePreview';
 import ProjectSheet from '../work/ProjectSheet';
 import { resolveProjectFrames } from '../work/assets';
 import { ArrowUpRight, GitHub } from '../ui/Icons';
@@ -22,16 +23,11 @@ const WORK_CATEGORIES = [
 function ProjectRow({ project, onOpen }) {
   const { t } = useLang();
   const reduced = useReducedMotion();
-  const frames = resolveProjectFrames(project).slice(0, project.category === 'web' ? 1 : 3);
+  const frames = resolveProjectFrames(project);
   return (
     <motion.article variants={rise(reduced, { y: 18 })} className="project-card" data-project-id={project.id}>
-      <button type="button" onClick={() => onOpen(project)} className="project-preview group" aria-label={t(`Explore ${project.titleEn}`, `استكشف ${project.titleAr}`)}>
-        <div className={`project-frames ${project.category === 'web' ? 'project-frames-web' : ''}`}>
-          {frames.length ? frames.map((frame, index) => <img key={frame} src={frame} alt="" loading="lazy" decoding="async" className={`project-frame project-frame-${index}`} />) : <span className="text-3xl font-semibold text-muted">{t(project.titleEn, project.titleAr)}</span>}
-        </div>
-        <span className="project-open">{t('Explore project', 'استكشف المشروع')} <ArrowUpRight className="h-4 w-4" /></span>
-      </button>
-      <div className="pt-6">
+      <DevicePreview images={frames} category={project.category} title={t(project.titleEn,project.titleAr)} arabic={t(false,true)} gallery />
+      <div className="project-copy p-6">
         <div className="mb-3 flex items-center justify-between gap-3"><span className="label">{project.index} / {project.category === 'web' ? t('Web product', 'منتج ويب') : t('Flutter application', 'تطبيق Flutter')}</span>{project.featured && <span className="label text-signal">{t('Featured', 'مميز')}</span>}</div>
         <button type="button" className="text-start" onClick={() => onOpen(project)}><h3 className="text-[clamp(1.5rem,2.4vw,2rem)] font-semibold tracking-tight">{t(project.titleEn, project.titleAr)}</h3></button>
         <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">{t(project.descShortEn, project.descShortAr)}</p>
@@ -75,17 +71,18 @@ export default function Work() {
   const { projects, loading, error } = usePublicProjects();
 
   const [activeCategory, setActiveCategory] = useState('mobile');
-  const [selected, setSelected] = useState(null);
+  const [selectedId, setSelected] = useState(null);
   const tabRefs = useRef([]);
 
   const filteredProjects = projects
     .filter((project) => project.category === activeCategory)
-    .sort((a, b) => a.order - b.order)
+    .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order || a.id.localeCompare(b.id))
     .map((project, index) => ({
       ...project,
       index: String(index + 1).padStart(2, '0'),
     }));
 
+  const selected = filteredProjects.find(item => item.id === selectedId) || projects.find(item => item.id === selectedId);
   const close = useCallback(() => setSelected(null), []);
 
   const selectCategory = useCallback((category) => {
@@ -174,11 +171,11 @@ export default function Work() {
         >
           {loading ? (
             <WorkLoadingState />
-          ) : error ? (
+          ) : error && !projects.length ? (
             <WorkMessage>{t('Projects are temporarily unavailable. Please try again later.', 'المشاريع غير متاحة مؤقتًا. يرجى المحاولة لاحقًا.')}</WorkMessage>
           ) : filteredProjects.length ? (
             filteredProjects.map((project) => (
-              <ProjectRow key={project.id} project={project} onOpen={setSelected} />
+              <ProjectRow key={project.id} project={project} onOpen={item => setSelected(item.id)} />
             ))
           ) : (
             <WorkMessage>{t(

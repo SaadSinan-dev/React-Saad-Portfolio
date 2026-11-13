@@ -1,5 +1,5 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -18,3 +18,7 @@ const app = isFirebaseConfigured
   : null;
 
 export const db = app ? getFirestore(app) : null;
+
+if (import.meta.env.DEV && firebaseConfig.projectId === 'demo-projects' && db) {
+  connectFirestoreEmulator(db, '127.0.0.1', 8188);
+}

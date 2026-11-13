@@ -5,15 +5,10 @@ import { DUR, SPRING } from '../../lib/motion';
 import { useLang } from '../../hooks/useLang';
 import { useDialog } from '../../hooks/useDialog';
 import { resolveProjectFrames } from './assets';
-import MediaCarousel from './MediaCarousel';
+import { DevicePreview } from './DevicePreview';
 import WebProjectGallery from './WebProjectGallery';
 import { ArrowUpRight, Close, GitHub } from '../ui/Icons';
 
-/**
- * The case sheet for one project: screenshots on one side, the written record
- * on the other. Everything shown here comes from the project's own entry in
- * data/portfolio.js.
- */
 export default function ProjectSheet({ project, onClose }) {
   const { t } = useLang();
   const reduced = useReducedMotion();
@@ -71,29 +66,10 @@ export default function ProjectSheet({ project, onClose }) {
         </div>
 
         {/* ── Screens ──────────────────────────────────────────────────── */}
-        {/* Mobile projects keep the existing device presentation unchanged. */}
-        {isWeb ? (
-          frames.length > 0 && (
-            <div className="shrink-0 border-line bg-surface pb-5 pt-14 lg:w-[28rem] lg:border-e lg:pb-6">
-              <div className="mx-auto w-full max-w-[64dvh] px-5 sm:px-6 lg:max-w-none">
-                <WebProjectGallery frames={frames} title={title} onOpenChange={setGalleryOpen} />
-              </div>
-              <p className="label mt-3 text-center">
-                {t(`${frames.length} screens`, `${frames.length} لقطات`)}
-              </p>
-            </div>
-          )
-        ) : (
-          <div className="shrink-0 border-line bg-surface pb-5 pt-14 lg:w-[17rem] lg:border-e lg:pb-6">
-            <div className="mx-auto w-[8.5rem] border border-line-strong bg-base p-1 sm:w-[10.5rem] lg:w-[12rem]">
-              <MediaCarousel frames={frames} title={title} />
-            </div>
-            <p className="label mt-3 text-center">
-              {t(`${frames.length} screens`, `${frames.length} لقطات`)}
-            </p>
-          </div>
-        )}
-
+        {frames.length > 0 && <div className="sheet-device shrink-0 border-line bg-surface pt-14 lg:w-[48%] lg:border-e">
+          <DevicePreview images={frames} category={project.category} title={title} arabic={t(false,true)} gallery />
+          {isWeb && <details className="px-4"><summary className="cursor-pointer py-2 text-sm">{t('Enlarge screenshots','تكبير اللقطات')}</summary><WebProjectGallery frames={frames} title={title} onOpenChange={setGalleryOpen}/></details>}
+        </div>}
         {/* ── Record ───────────────────────────────────────────────────── */}
         <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-8 pt-16 sm:px-8 sm:pt-16">
           <h2 id={headingId} className="headline text-h2">
