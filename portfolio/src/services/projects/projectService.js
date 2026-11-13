@@ -27,7 +27,10 @@ export function subscribePublicProjects(onData, onError) {
     projectsQuery,
     (snapshot) => {
       onData(
-        snapshot.docs.map((snapshotDoc) =>
+        snapshot.docs.filter((snapshotDoc) => {
+          const data = snapshotDoc.data();
+          return data.published !== false && data.isPublished !== false && data.public !== false && data.isPublic !== false && data.isPrivate !== true && String(data.visibility || '').toLowerCase() !== 'private' && !['draft', 'archived', 'private', 'unpublished'].includes(String(data.status || '').toLowerCase());
+        }).map((snapshotDoc) =>
           storedProjectToPortfolioProject(snapshotDoc.id, snapshotDoc.data())
         ),
         { source: 'firestore' }

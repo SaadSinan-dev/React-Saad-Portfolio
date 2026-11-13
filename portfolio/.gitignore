@@ -40,3 +40,4 @@ coverage/
 *.local
 dist/
 .vite/
+public/project-images/

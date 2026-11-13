@@ -18,6 +18,8 @@ Vite writes the production site to `dist/`.
 
 ## Netlify
 
+The public projects feed is `/.netlify/functions/public-projects` on this Netlify site. It reads the same public Firestore collection as the Portfolio, returns a versioned JSON snapshot, and allows Mashrouak.net to display projects without maintaining a second collection. The build copies legacy project images to stable public paths. Keep `netlify.toml` in the Netlify base directory. For server-side Firebase requests, set `FIREBASE_WEB_API_KEY` when the browser key is restricted by referrer. See the Mashrouak repository's `docs/PORTFOLIO_PROJECTS_INTEGRATION.md` for deployment order and verification.
+
 - Build command: `npm run build`
 - Publish directory: `dist`
 - Configure the five `VITE_FIREBASE_*` values from `.env.example` in Netlify environment variables.
